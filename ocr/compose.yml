@@ -1,0 +1,20 @@
+services:
+  ocr-service:
+    image: python:3.9-slim
+    container_name: ocr-container
+    working_dir: /app
+    volumes:
+      - ./data:/app/data  # ローカルのデータディレクトリをコンテナ内にマウント
+      - ./:/app  # カレントディレクトリ全体をマウント
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TESSDATA_PREFIX=/usr/share/tesseract-ocr/5/tessdata/
+      - WATCHPACK_POLLING=true
+    tty: true
+    command: >
+      bash -c "
+      apt-get update && 
+      apt-get install -y tesseract-ocr tesseract-ocr-jpn libtesseract-dev &&
+      pip install --no-cache-dir -r requirements.txt &&
+      tail -f /dev/null
+      "

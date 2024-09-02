@@ -1,32 +1,7 @@
 from PIL import Image
 import pytesseract
 import os
-import re
-
-
-
-def getScore(target: str) -> int:
-    
-    # テキストを行ごとに分割し、空の行を除外
-    lines = [line.strip() for line in text.splitlines() if line.strip()]
-
-    # 文字列「カロリー」などを探して、その次の行の位置とテキストを取得
-    for i, line in enumerate(lines):
-        if target in line:
-            next_line_position = i + 1
-            if next_line_position < len(lines):
-                next_line_text = lines[next_line_position]
-                # print(f"次の行の位置: {next_line_position}")
-                # print(f"次の行のテキスト: {next_line_text}")
-            else:
-                print("次の行がありません")
-            break
-
-    match = re.search(r'(\d+)\s*/', next_line_text)
-    if match:
-        number_before_slash = match.group(1)
-        # print(f"スラッシュの前の数字: {number_before_slash}")
-        return number_before_slash
+# import re
 
 
 class NutritionSummary:
@@ -106,8 +81,6 @@ def getSumaryManually() -> NutritionSummary:
 # 画像ファイルのパス
 image_path = '/app/data/sample.jpeg'
 
-
-
 # ファイルの存在確認
 if not os.path.exists(image_path):
     print(f"Error: File not found at {image_path}")
@@ -138,14 +111,6 @@ try:
 
     text = pytesseract.image_to_string(image, lang='jpn')
 
-    # 空白を改行に置き換え
-    # text = text.replace(' ', '\n')
-
-    # # 空の行を削除
-    # text_lines = text.splitlines()
-    # cleaned_text = '\n'.join(line for line in text_lines if line.strip())
-
-    # print(getScore("カロリー"))
 
 
     try:
@@ -200,3 +165,29 @@ except Exception as e:
 # # 結果を表示
 # for key, value in key_value_pairs.items():
 #     print(f"{key}: {value}")
+
+
+
+
+# def getScore(target: str) -> int:
+    
+#     # テキストを行ごとに分割し、空の行を除外
+#     lines = [line.strip() for line in text.splitlines() if line.strip()]
+
+#     # 文字列「カロリー」などを探して、その次の行の位置とテキストを取得
+#     for i, line in enumerate(lines):
+#         if target in line:
+#             next_line_position = i + 1
+#             if next_line_position < len(lines):
+#                 next_line_text = lines[next_line_position]
+#                 # print(f"次の行の位置: {next_line_position}")
+#                 # print(f"次の行のテキスト: {next_line_text}")
+#             else:
+#                 print("次の行がありません")
+#             break
+
+#     match = re.search(r'(\d+)\s*/', next_line_text)
+#     if match:
+#         number_before_slash = match.group(1)
+#         # print(f"スラッシュの前の数字: {number_before_slash}")
+#         return number_before_slash

@@ -29,6 +29,36 @@ def getScore(target: str) -> int:
         return number_before_slash
 
 
+class NutritionSummary:
+    calorie: int
+    protein: float
+    fat: float
+    sugars: float
+    carbohydrates: float
+    dietaryFiber: float
+    sodium: float
+
+    def __init__(self, calorie: int, protein: float, fat: float, sugars: float, 
+                 carbohydrates: float, dietaryFiber: float, sodium: float):
+        self.calorie = calorie
+        self.protein = protein
+        self.fat = fat
+        self.sugars = sugars
+        self.carbohydrates = carbohydrates
+        self.dietaryFiber = dietaryFiber
+        self.sodium = sodium
+
+
+    def calculateProteinBalance(self):
+        return round((self.protein * 4 / self.calorie * 100), 2)
+
+    def calculateFatBalance(self):
+        return round((self.fat * 9/ self.calorie * 100), 2)
+    
+    def calculateCarbohydratesBalance(self):
+        return round((self.carbohydrates * 4 / self.calorie * 100), 2)
+    
+
 
 # 画像ファイルのパス
 image_path = '/app/data/sample.jpeg'

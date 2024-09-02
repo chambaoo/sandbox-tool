@@ -60,8 +60,53 @@ class NutritionSummary:
     
 
 
+def extractSummary(target: str) -> NutritionSummary:
+
+    return NutritionSummary(
+        calorie = 250,
+        protein = 20.5,
+        fat = 14.4,
+        sugars = 10.3,
+        carbohydrates = 40.0,
+        dietaryFiber = 7.2,
+        sodium = 150.0
+    )
+
+
+def extractSummaryErr(target: str):
+    raise Exception("failed to extract summary.")
+
+def getSumaryManually() -> NutritionSummary:
+    print("calorie:")
+    calorie: int = int(input())
+    print("protein:")
+    protein: float = float(input())
+    print("fat:")
+    fat: float = float(input())
+    print("sugars:")
+    sugars: float = float(input())
+    print("carbohydrates:")
+    carbohydrates: float = float(input())
+    print("dietary fiber:")
+    dietaryFiber: float = float(input())
+    print("sodium:")
+    sodium: float = float(input())
+
+    
+    return NutritionSummary(
+        calorie = calorie,
+        protein = protein,
+        fat = fat,
+        sugars = sugars,
+        carbohydrates = carbohydrates,
+        dietaryFiber = dietaryFiber,
+        sodium = sodium,
+    )
+
 # 画像ファイルのパス
 image_path = '/app/data/sample.jpeg'
+
+
 
 # ファイルの存在確認
 if not os.path.exists(image_path):
@@ -100,29 +145,28 @@ try:
     # text_lines = text.splitlines()
     # cleaned_text = '\n'.join(line for line in text_lines if line.strip())
 
-    print(getScore("カロリー"))
-
-    # print(cleaned_text)
-
-    # # 「カロリー」を探して、その次の行の位置を取得
-    # for i, line in enumerate(text_lines):
-    #     if "カロリー" in line:
-    #         next_line_position = i + 1
-    #         if next_line_position < len(text_lines):
-    #             print(f"次の行の位置: {next_line_position}")
-    #             next_line_text = text_lines[next_line_position]
-    #             print(f"次の行のテキスト: {next_line_text}")
-    #         else:
-    #             print("次の行がありません")
-    #         break
+    # print(getScore("カロリー"))
 
 
+    try:
 
-    # print(data)
-    # print(text)
+        summary = None
+        summary = extractSummaryErr(text)
 
+    except Exception as e:
+        print(f"An error occurred while extracting summary: {str(e)}")
+        print("Input scores manually")
+    
+        try:
+            summary = getSumaryManually()
+
+        except Exception as e:
+            print(f"An error occurred. Input Error: {str(e)}")
 
     # 計算
+    print(f"P (13 ~ 20%) = {summary.calculateProteinBalance()}%")
+    print(f"F (20 ~ 30%) = {summary.calculateFatBalance()}%")
+    print(f"C (50 ~ 65%)= {summary.calculateCarbohydratesBalance()}%")
 
 except Exception as e:
     print(f"An error occurred: {str(e)}")

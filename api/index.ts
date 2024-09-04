@@ -1,19 +1,17 @@
-const stage = process.env.STAGE;
-console.log(`Hello via Bun! ${stage}`);
+import OpenAI from "openai";
 
+const openai = new OpenAI();
 
-// import OpenAI from "openai";
-// const openai = new OpenAI();
+async function main() {
+    const stream = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: "Say this is a test" }],
+        stream: true,
+    });
+    for await (const chunk of stream) {
+        process.stdout.write(chunk.choices[0]?.delta?.content || "");
+    }
+}
 
-// const completion = await openai.chat.completions.create({
-//     model: "gpt-4o-mini",
-//     messages: [
-//         // { role: "system", content: "You are a helpful assistant." },
-//         {
-//             role: "user",
-//             content: ".",
-//         },
-//     ],
-// });
+main();
 
-// console.log(completion.choices[0].message);

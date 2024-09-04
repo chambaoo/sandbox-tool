@@ -18,4 +18,6 @@ This project was created using `bun init` in bun v1.1.18. [Bun](https://bun.sh) 
 
 ```sh
 bun add openai
+bun add sharp
+bun add --dev prettier
 ```

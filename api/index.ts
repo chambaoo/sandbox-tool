@@ -1,17 +1,6 @@
-import OpenAI from "openai";
+import { convertImageGrayscale, getBase64Image } from './src/image-handler';
+import { callOpenAI } from './src/call-openapi';
 
-const openai = new OpenAI();
-
-async function main() {
-    const stream = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [{ role: "user", content: "Say this is a test" }],
-        stream: true,
-    });
-    for await (const chunk of stream) {
-        process.stdout.write(chunk.choices[0]?.delta?.content || "");
-    }
-}
-
-main();
-
+await convertImageGrayscale();
+const imageBase64 = await getBase64Image();
+callOpenAI(imageBase64);

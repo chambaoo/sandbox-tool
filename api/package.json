@@ -2,10 +2,17 @@
   "name": "api",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist && echo 'Done.'",
+    "dev": "bun --env-file=env/.env index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "openai": "^4.57.1"
   }
 }

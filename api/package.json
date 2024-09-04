@@ -4,10 +4,12 @@
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist && echo 'Done.'",
+    "format": "prettier --write .",
     "dev": "bun --env-file=env/.env index.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "prettier": "^3.3.3"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
